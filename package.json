@@ -1,0 +1,39 @@
+{
+  "name": "mesto1",
+  "version": "0.0.1",
+  "description": "https://romanova404.github.io/sprint14/ v0.0.1\r Актуальная версия v0.0.1",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "author": "romanova404",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "celebrate": "^11.0.1",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.11",
+    "mongoose-type-url": "^1.0.6",
+    "mongoose-validator": "^2.1.0",
+    "validator": "^12.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romanova404/sprint14.git"
+  },
+  "bugs": {
+    "url": "https://github.com/romanova404/sprint14/issues"
+  },
+  "homepage": "https://github.com/romanova404/sprint14#readme"
+}
