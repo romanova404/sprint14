@@ -28,8 +28,7 @@ app.use(cookieParser());
 app.post('/signin', loginCheck, login);
 app.post('/signup', createUserCheck, createUser);
 
-app.use(auth);
-app.use(routes);
+app.use(auth, routes);
 
 app.use(errors());
 
