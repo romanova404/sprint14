@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const userModel = require('../models/user.js');
-const secretKey = require('../secret');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const { ObjectId } = mongoose.Types;
 
@@ -45,7 +46,7 @@ module.exports.login = (req, res) => {
   const { email, password } = req.body;
   return userModel.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, secretKey, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.cookie('jwt', token, {
         maxAge: 604800,
         httpOnly: true,
