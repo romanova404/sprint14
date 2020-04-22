@@ -10,7 +10,7 @@ const { createUser, login } = require('./controllers/users');
 const { createUserCheck, loginCheck } = require('./modules/validation');
 
 const auth = require('./middlewares/auth');
-
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
@@ -26,12 +26,26 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.post('/signin', loginCheck, login);
 app.post('/signup', createUserCheck, createUser);
 
 app.use(auth, routes);
 
+app.use(errorLogger);
+
 app.use(errors());
+
+app.use((err, req, res) => {
+  res.status(500).send({ message: 'Произошла ошибка' });
+});
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

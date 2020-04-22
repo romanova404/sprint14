@@ -3,30 +3,33 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const userModel = require('../models/user.js');
+const NotFoundError = require('../errors/not-found-err');
+const BadRequestError = require('../errors/bad-request-err');
+const AuthError = require('../errors/auth-err');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const { ObjectId } = mongoose.Types;
 
-module.exports.getUsers = (req, res) => {
+module.exports.getUsers = (req, res, next) => {
   userModel.find({})
     .then((users) => res.status(200).send({ data: users }))
-    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
+    .catch(next);
 };
 
-module.exports.findUser = (req, res) => {
+module.exports.findUser = (req, res, next) => {
   const { id } = req.params;
   if (!ObjectId.isValid(id)) {
     res.status(400).send({ message: 'Невалидный id' });
     return;
   }
   userModel.findById({ _id: id })
-    .then((user) => (user ? res.status(200).send({ data: user }) : res.status(404).send({ message: 'Нет пользователя с таким id' })))
-    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
+    .then((user) => (user ? res.status(200).send({ data: user }) : new NotFoundError('Нет пользователя с таким id')))
+    .catch(next);
 };
 
 
-module.exports.createUser = (req, res) => {
+module.exports.createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
@@ -39,7 +42,7 @@ module.exports.createUser = (req, res) => {
     .then((user) => res.status(201).send({
       _id: user._id, name: user.name, about: user.about, avatar: user.avatar, email: user.email,
     }))
-    .catch((err) => ((err.name === 'ValidationError') ? res.status(400).send({ message: 'Ошибка валидации' }) : res.status(500).send({ message: 'Произошла ошибка' })));
+    .catch((err) => ((err.name === 'ValidationError') ? new BadRequestError('Ошибка валидации') : next(err)));
 };
 
 module.exports.login = (req, res) => {
@@ -55,5 +58,5 @@ module.exports.login = (req, res) => {
       });
       res.send({ token });
     })
-    .catch(() => res.status(401).send({ message: 'Ошибка авторизации' }));
+    .catch(() => new AuthError('Ошибка авторизации'));
 };
