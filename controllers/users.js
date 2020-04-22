@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const userModel = require('../models/user.js');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const { ObjectId } = mongoose.Types;
 
 module.exports.getUsers = (req, res) => {
@@ -34,7 +36,9 @@ module.exports.createUser = (req, res) => {
       name, about, avatar, email, password: hash,
     }))
 
-    .then((user) => res.status(201).send({ data: user }))
+    .then((user) => res.status(201).send({
+      _id: user._id, name: user.name, about: user.about, avatar: user.avatar, email: user.email,
+    }))
     .catch((err) => ((err.name === 'ValidationError') ? res.status(400).send({ message: 'Ошибка валидации' }) : res.status(500).send({ message: 'Произошла ошибка' })));
 };
 
@@ -42,13 +46,14 @@ module.exports.login = (req, res) => {
   const { email, password } = req.body;
   return userModel.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'temporary-word', { expiresIn: '7d' });
-      res.send({ token });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.cookie('jwt', token, {
-        maxAge: '7d',
+        maxAge: 604800,
         httpOnly: true,
-      })
-        .end();
+        sameSite: true,
+        secure: true,
+      });
+      res.send({ token });
     })
     .catch(() => res.status(401).send({ message: 'Ошибка авторизации' }));
 };

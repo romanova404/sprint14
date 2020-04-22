@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -28,8 +29,7 @@ app.use(cookieParser());
 app.post('/signin', loginCheck, login);
 app.post('/signup', createUserCheck, createUser);
 
-app.use(auth);
-app.use(routes);
+app.use(auth, routes);
 
 app.use(errors());
 
