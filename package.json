@@ -1,7 +1,7 @@
 {
   "name": "mesto1",
-  "version": "0.0.4",
-  "description": "https://romanova404.github.io/sprint14/ v0.0.4\r Актуальная версия v0.0.4",
+  "version": "0.0.5",
+  "description": "https://romanova404.github.io/sprint14/ v0.0.5\r Актуальная версия v0.0.5",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
@@ -23,11 +23,13 @@
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-winston": "^4.0.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.11",
     "mongoose-type-url": "^1.0.6",
     "mongoose-validator": "^2.1.0",
-    "validator": "^12.2.0"
+    "validator": "^12.2.0",
+    "winston": "^3.2.1"
   },
   "repository": {
     "type": "git",
