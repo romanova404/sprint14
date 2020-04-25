@@ -6,6 +6,11 @@
 https://www.yandexstudyproject.design/ - фронтенд
 https://www.yandexstudyproject.design/api - бекенд
 
+# Публичные адреса
+84.201.180.237 - публичный IP
+https://www.yandexstudyproject.design/ - фронтенд
+https://www.yandexstudyproject.design/api - бекенд
+
 ### Сборки(настройки можно посмотреть в package.json - "scripts")
 
 - dev = development для разработчиков (использующиеся статичные файлы сборки в папке public). 
