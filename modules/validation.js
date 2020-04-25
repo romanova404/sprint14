@@ -1,4 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
+Joi.objectId = require('joi-objectid')(Joi);
 
 const createUserCheck = celebrate({
   body: Joi.object().keys({
@@ -20,9 +21,22 @@ const createCardCheck = celebrate({
 const loginCheck = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required(),
+    password: Joi.string().min(8).required(),
   }),
 });
 
+const cardIdCheck = celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.objectId(),
+  }),
+});
 
-module.exports = { createUserCheck, createCardCheck, loginCheck };
+const userIdCheck = celebrate({
+  params: Joi.object().keys({
+    id: Joi.objectId(),
+  }),
+});
+
+module.exports = {
+  createUserCheck, createCardCheck, loginCheck, cardIdCheck, userIdCheck,
+};
