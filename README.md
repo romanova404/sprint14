@@ -1,5 +1,5 @@
-# https://romanova404.github.io/sprint14/ v0.0.6
-Актуальная версия v0.0.6
+# https://romanova404.github.io/sprint14/ v0.0.7
+Актуальная версия v0.0.7
 
 # Публичные адреса
 84.201.180.237 - публичный IP

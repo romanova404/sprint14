@@ -6,6 +6,7 @@ const userModel = require('../models/user.js');
 const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-request-err');
 
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const { ObjectId } = mongoose.Types;
@@ -23,7 +24,12 @@ module.exports.findUser = (req, res, next) => {
     return;
   }
   userModel.findById({ _id: id })
-    .then((user) => (user ? res.status(200).send({ data: user }) : new NotFoundError('Нет пользователя с таким id')))
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Нет пользователя с таким id');
+      }
+      res.status(200).send({ data: user });
+    })
     .catch(next);
 };
 

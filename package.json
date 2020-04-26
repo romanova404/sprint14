@@ -1,7 +1,7 @@
 {
   "name": "mesto1",
-  "version": "0.0.6",
-  "description": "https://romanova404.github.io/sprint14/ v0.0.6\r Актуальная версия v0.0.6",
+  "version": "0.0.7",
+  "description": "https://romanova404.github.io/sprint14/ v0.0.7\r Актуальная версия v0.0.7",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",

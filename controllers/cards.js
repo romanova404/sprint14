@@ -26,10 +26,6 @@ module.exports.createCard = (req, res, next) => {
     .catch(next);
 };
 
-// .then((card) => res.status(200).send({ data: card }))
-// .catch((err) => ((err.name === 'ValidationError') ? new BadRequestError('Невалидный id') :
-// next(err)));
-
 module.exports.deleteCard = (req, res, next) => {
   const { cardId } = req.params;
 
