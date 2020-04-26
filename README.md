@@ -1,5 +1,15 @@
-# https://romanova404.github.io/sprint14/ v0.0.5
-Актуальная версия v0.0.5
+# https://romanova404.github.io/sprint14/ v0.0.7
+Актуальная версия v0.0.7
+
+# Публичные адреса
+84.201.180.237 - публичный IP
+https://www.yandexstudyproject.design/ - фронтенд
+https://www.yandexstudyproject.design/api - бекенд
+
+# Публичные адреса
+84.201.180.237 - публичный IP
+https://www.yandexstudyproject.design/ - фронтенд
+https://www.yandexstudyproject.design/api - бекенд
 
 ### Сборки(настройки можно посмотреть в package.json - "scripts")
 

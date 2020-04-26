@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../models/user.js');
 const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-request-err');
-const AuthError = require('../errors/auth-err');
+
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -24,7 +24,12 @@ module.exports.findUser = (req, res, next) => {
     return;
   }
   userModel.findById({ _id: id })
-    .then((user) => (user ? res.status(200).send({ data: user }) : new NotFoundError('Нет пользователя с таким id')))
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Нет пользователя с таким id');
+      }
+      res.status(200).send({ data: user });
+    })
     .catch(next);
 };
 
@@ -45,7 +50,7 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => ((err.name === 'ValidationError') ? new BadRequestError('Ошибка валидации') : next(err)));
 };
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return userModel.findUserByCredentials(email, password)
     .then((user) => {
@@ -58,5 +63,5 @@ module.exports.login = (req, res) => {
       });
       res.send({ token });
     })
-    .catch(() => new AuthError('Ошибка авторизации'));
+    .catch(next);
 };
