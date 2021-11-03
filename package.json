@@ -29,7 +29,7 @@
     "mongoose": "^5.8.11",
     "mongoose-type-url": "^1.0.6",
     "mongoose-validator": "^2.1.0",
-    "validator": "^12.2.0",
+    "validator": "^13.7.0",
     "winston": "^3.2.1"
   },
   "repository": {
