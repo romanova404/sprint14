@@ -22,7 +22,7 @@
     "celebrate": "^11.0.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-winston": "^4.0.3",
     "joi-objectid": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
